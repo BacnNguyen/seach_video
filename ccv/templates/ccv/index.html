@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCV Histogram</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<style>
+    #upload {
+    opacity: 0;
+}
+
+#upload-label {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+}
+
+.image-area {
+    border: 2px dashed rgba(255, 255, 255, 0.7);
+    padding: 1rem;
+    position: relative;
+}
+
+.image-area::before {
+    content: 'Uploaded image result';
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+    z-index: 1;
+}
+
+.image-area img {
+    z-index: 2;
+    position: relative;
+}
+
+/*
+*
+* ==========================================
+* FOR DEMO PURPOSES
+* ==========================================
+*
+*/
+body {
+    min-height: 100vh;
+    background-color: #757f9a;
+    background-image: linear-gradient(147deg, #757f9a 0%, #d7dde8 100%);
+}
+</style>
+<body>
+    <div class="container py-5 search1">
+        <h1>Coherence Color Vector</h1>
+        <!-- For demo purpose -->
+        <div class="row">
+            <div class="col-6 d-flex flex-column">
+                <div>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="Search">
+                    </form>
+                </div>
+           
+               
+            </div>
+            <div class="col-6">
+                {%if filename %}
+                    <img src="/static/images/{{filename}}" alt="" style="width: 80%;height: 80%;object-fit: cover;display: block;">
+                {%endif%}
+            </div>
+        </div>
+        <h1>Result Video</h1>
+        <div class="row">
+            
+            <!-- <video width="640" height="480" autoplay muted>
+                <source src="/static/cut_video/video (1).mp4" type="video/mp4">
+            </video> -->
+            {% for item in url %}
+                <div style="margin: auto;">
+                    <video width="640" height="480" autoplay muted>
+                        <source src="G:/Ky2_Nam4/CSDLDaPhuongTien/video/cut_video/{{item}}" type="video/mp4">
+                    </video>
+                </div>
+            {%endfor%}
+        </div>  
+            <!-- {% for item in url %}
+            <div class="col-md-4 mb-5">
+                <img src="/static/dataset1/{{item}}" alt="" style="width:80%;object-fit: cover;"> 
+            </div>
+            {%endfor%} -->
+        
+        <!-- <h1>Best result</h1>
+        <div>
+            <video width="640" height="480" autoplay muted>
+                <source src="/static/video/{{result_video}}" type="video/mp4">
+            </video>
+        </div> -->
+    </div>  
+</body>
+</html>
